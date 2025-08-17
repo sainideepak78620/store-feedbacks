@@ -8,10 +8,11 @@ function App() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_URL = "https://store-feedbacks.onrender.com";
 
   useEffect(() => {
-    fetch(`https://dummyjson.com/quotes/random`)
+    console.log(API_URL)
+    fetch(`${API_URL}/quotes/random`)
       .then(res => res.json())
       .then(data => setQuote(data.quote))
       .catch(() => setQuote("Failed to load quote."));
@@ -27,7 +28,7 @@ function App() {
     setError("");
     setMessage("");
     try {
-      const res = await fetch(`http://localhost:5000/feedback`, {
+      const res = await fetch(`${API_URL}/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, feedback })
