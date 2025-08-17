@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // Load quotes
-const quotes = require("./quotes.json");
+const quotes = require("./data/quotes.json");
 
 // GET /quote - return a random motivational quote
 app.get("/quote", (req, res) => {
@@ -47,6 +47,11 @@ app.get("/feedbacks", (req, res) => {
         feedbackData = JSON.parse(data);
       }    
       res.json(feedbackData);
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.json({"msg": "404 - Page Not Found"});
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
