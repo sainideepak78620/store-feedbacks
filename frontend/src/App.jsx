@@ -12,14 +12,15 @@ function App() {
 
   useEffect(() => {
     console.log(API_URL)
-    fetch(`${API_URL}/quotes/random`)
+    fetch(`${API_URL}/quote`)
       .then(res => res.json())
-      .then(data => setQuote(data.quote))
+      .then(data => setQuote(data.quote.quote))
       .catch(() => setQuote("Failed to load quote."));
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(name, email, feedback);
     if (!name.trim() || !feedback.trim() || !email.trim()) {
       setError("Name, Email and Feedback cannot be empty.");
       setTimeout(() => setError(""), 3000);
@@ -31,7 +32,7 @@ function App() {
       const res = await fetch(`${API_URL}/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, feedback })
+        body: JSON.stringify({ name, email, feedback })
       });
       const data = await res.json();
       if (res.ok) {
